@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Shop - ALE</title>
+    <style>
+        body {
+            background-color: #ECEBDE;
+            color: #333;
+        }
+        .product {
+            background-color: #D7D3BF;
+            border: 1px solid #C1BAA1;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #A59D84;
+            border-color: #A59D84;
+        }
+    </style>
+</head>
+<body>
+    <div class="header bg-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="text-dark">ALE</h1>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a href="shop.html" class="nav-link text-dark">Shop</a></li>
+                    <li class="nav-item"><a href="cart.html" class="nav-link text-dark">Cart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h2 class="text-center">Shop Products</h2>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="1.jpg" alt="Product 1" class="img-fluid">
+                    <h4>Product 1</h4>
+                    <p>Price: $10</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 1', 10)">View Product</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="2.jpg" alt="Product 2" class="img-fluid">
+                    <h4>Product 2</h4>
+                    <p>Price: $100</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 2', 100)">View Product</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="3.jpg" alt="Product 3" class="img-fluid">
+                    <h4>Product 3</h4>
+                    <p>Price: $150</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 3', 150)">View Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="4.jpg" alt="Product 4" class="img-fluid">
+                    <h4>Product 4</h4>
+                    <p>Price: $20</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 4', 20)">View Product</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="5.jpg" alt="Product 5" class="img-fluid">
+                    <h4>Product 5</h4>
+                    <p>Price: $200</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 5', 200)">View Product</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="product">
+                    <img src="6.jpg" alt="Product 6" class="img-fluid">
+                    <h4>Product 6</h4>
+                    <p>Price: $250</p>
+                    <button class="btn btn-primary" onclick="showModal('Product 6', 250)">View Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add to Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalProductName"></p>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" class="form-control" value="1" min="1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer bg-dark text-light py-3">
+        <div class="container text-center">
+            <p>&copy; 2024 ALE</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function showModal(productName, productPrice) {
+            document.getElementById('modalProductName').innerText = `${productName} - $${productPrice}`;
+            $('#productModal').modal('show');
+        }
+
+        function addToCart() {
+            const productName = document.getElementById('modalProductName').innerText.split(' - ')[0];
+            const productPrice = parseFloat(document.getElementById('modalProductName').innerText.split(' - $')[1]);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const total = productPrice * quantity;
+
+            cart.push({ name: productName, quantity, total });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            $('#productModal').modal('hide');
+            alert('Product added to cart!');
+        }
+    </script>
+</body>
+</html>

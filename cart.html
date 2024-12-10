@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Cart Page - ALE</title>
+    <style>
+        body {
+            background-color: #ECEBDE;
+            color: #333;
+        }
+        .header, .footer {
+            text-align: center;
+            padding: 10px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header bg-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="text-dark">ALE</h1>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a href="shop.html" class="nav-link text-dark">Shop</a></li>
+                    <li class="nav-item"><a href="cart.html" class="nav-link text-dark">Cart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <h2 class="text-center">Shopping Cart</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody id="cartItems">
+           
+            </tbody>
+        </table>
+        <div class="text-right">
+            <h4 id="cartTotal">Total: $0</h4>
+            <button class="btn btn-success" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <div class="footer py-3">
+        <p>&copy; 2024 ALE</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            let total = 0;
+            cartItems.innerHTML = '';
+
+            cart.forEach(item => {
+                cartItems.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>$${item.total}</td>
+                    </tr>
+                `;
+                total += item.total;
+            });
+
+            cartTotal.innerText = `Total: $${total}`;
+        }
+
+        function placeOrder() {
+            alert('Order placed successfully!');
+            localStorage.removeItem('cart'); 
+            window.location.href = 'thankyou.html'; 
+        }
+
+        updateCart();
+    </script>
+</body>
+</html>
