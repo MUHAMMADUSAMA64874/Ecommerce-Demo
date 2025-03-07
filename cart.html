@@ -4,21 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
-    <title>Cart Page - ALE</title>
-    <style>
-        body {
-            background-color: #ECEBDE;
-            color: #333;
-        }
-        .header, .footer {
-            text-align: center;
-            padding: 10px;
-        }
-        .footer {
-            background-color: #343a40;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <title>Cart - ALE</title>
 </head>
 <body>
     <div class="header bg-light py-3">
@@ -26,6 +13,7 @@
             <h1 class="text-dark">ALE</h1>
             <nav>
                 <ul class="nav">
+                    <li class="nav-item"><a href="index.html" class="nav-link text-dark">Home</a></li>
                     <li class="nav-item"><a href="shop.html" class="nav-link text-dark">Shop</a></li>
                     <li class="nav-item"><a href="cart.html" class="nav-link text-dark">Cart</a></li>
                 </ul>
@@ -43,9 +31,7 @@
                     <th>Total Price</th>
                 </tr>
             </thead>
-            <tbody id="cartItems">
-           
-            </tbody>
+            <tbody id="cartItems"></tbody>
         </table>
         <div class="text-right">
             <h4 id="cartTotal">Total: $0</h4>
@@ -53,43 +39,14 @@
         </div>
     </div>
 
-    <div class="footer py-3">
-        <p>&copy; 2024 ALE</p>
+    <div class="footer bg-dark text-light py-3">
+        <div class="container text-center">
+            <p>&copy; 2025 ALE</p>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
-
-    <script>
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function updateCart() {
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            let total = 0;
-            cartItems.innerHTML = '';
-
-            cart.forEach(item => {
-                cartItems.innerHTML += `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.quantity}</td>
-                        <td>$${item.total}</td>
-                    </tr>
-                `;
-                total += item.total;
-            });
-
-            cartTotal.innerText = `Total: $${total}`;
-        }
-
-        function placeOrder() {
-            alert('Order placed successfully!');
-            localStorage.removeItem('cart'); 
-            window.location.href = 'thankyou.html'; 
-        }
-
-        updateCart();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
